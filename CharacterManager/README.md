@@ -7,13 +7,13 @@ Aplikasi ini adalah sistem manajemen karakter sederhana berbasis teks (Console-b
 Berikut adalah hasil eksekusi program di terminal setelah menambahkan fitur pengecekan status `isAlive()` dan atribut `mana`:
 
 ![Output Terminal](path/to/your/screenshot.png)
-*(Catatan: Ganti path di atas dengan lokasi file gambar screenshot terminal Anda setelah di-upload ke GitHub, atau drag-and-drop langsung gambar screenshot Anda ke baris ini saat mengedit di GitHub)*
+
 
 ## Struktur Folder Project
 
 ```text
 CharacterManager/
-├── scr/
+├── src/
 │   ├── Main.java
 │   └── com/
 │       └── unpri/
