@@ -6,8 +6,6 @@ Aplikasi ini adalah sistem manajemen karakter sederhana berbasis teks (Console-b
 
 Berikut adalah hasil eksekusi program di terminal setelah menambahkan fitur pengecekan status `isAlive()` dan atribut `mana`:
 
-![Output Terminal](img/output.png)
-![Output Terminal Kedua](img/output2.png)
 
 
 ## Struktur Folder Project
