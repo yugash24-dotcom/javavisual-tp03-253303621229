@@ -1,50 +1,103 @@
-import com.unpri.charactermanager.model.Character;       // import class Character dari package model
-import com.unpri.charactermanager.model.CharacterType;   // import enum CharacterType
+import com.unpri.charactermanager.model.Character;
+import com.unpri.charactermanager.model.CharacterManager;
+import com.unpri.charactermanager.model.CharacterType;
 
 public class Main {
-    public static void main(String[] args) {              // method main: titik awal eksekusi program
+    public static void main(String[] args) {
 
-        System.out.println("=== Character Manager v0.1 ===");
+        System.out.println("=== Character Manager v0.2 — CRUD Test ===\n");
 
-        // Membuat 3 object Character menggunakan constructor pertama
-        Character hero = new Character("Arjuna", CharacterType.WARRIOR, 5);
-        Character wizard = new Character("Merlin", CharacterType.MAGE, 3);
-        Character scout = new Character("Athena", CharacterType.ARCHER, 4);
+        CharacterManager manager = new CharacterManager();
 
-        // Menampilkan ketiganya menggunakan toString()
-        System.out.println(hero);
-        System.out.println(wizard);
-        System.out.println(scout);
+        // 1. Tambah beberapa karakter
+        manager.addCharacter(new Character("Arjuna", CharacterType.WARRIOR, 5));
+        manager.addCharacter(new Character("Merlin", CharacterType.MAGE, 3));
+        manager.addCharacter(new Character("Athena", CharacterType.ARCHER, 4));
 
+        // 2. Coba tambah DUPLIKAT nama — seharusnya DITOLAK
         System.out.println();
-        System.out.println(">> " + hero.getName() + " level up!");
-        hero.setLevel(hero.getLevel() + 1);     // naik 1 level, HP & Attack dihitung ulang otomatis
-        System.out.println("After level up: " + hero);
+        manager.addCharacter(new Character("Arjuna", CharacterType.HEALER, 1));
 
-        System.out.println();
-        System.out.println(">> Nama karakter: " + hero.getName());
-        System.out.println(">> Jenis karakter: " + hero.getType());
-        System.out.println(">> HP saat ini: " + hero.getHitPoints());
+        // 3. Tampilkan total karakter
+        System.out.println("\nTotal karakter saat ini: " + manager.getTotalCharacters());
 
-        // ====================================================================
-        // TUGAS 5: PENGUJIAN FITUR BARU (MANA & ISALIVE)
-        // ====================================================================
-        System.out.println("\n=== Pengujian Fitur Baru ===");
+        // 4. Cari karakter
+        System.out.println("\n--- Pencarian ---");
+        Character hasil = manager.findByName("Merlin");
+        System.out.println(hasil != null ? "Ditemukan: " + hasil : "Tidak ditemukan");
+
+        Character tidakAda = manager.findByName("Zeus");
+        System.out.println(tidakAda != null ? "Ditemukan: " + tidakAda : "Zeus tidak ditemukan (sesuai harapan)");
+
+        // 5. Hapus karakter
+        System.out.println("\n--- Penghapusan ---");
+        manager.removeCharacter("Athena");
+        System.out.println("Total setelah hapus: " + manager.getTotalCharacters());
+
+        // 6. Tampilkan semua karakter yang tersisa
+        System.out.println("\n--- Daftar Karakter Tersisa ---");
+        for (Character c : manager.getAllCharacters()) {
+            System.out.println(c);
+        }
+
+        // ===== EKSPERIMEN: Object Reference =====
+        System.out.println("\n--- Eksperimen Reference ---");
+
+        Character asli = manager.findByName("Arjuna");
+        Character duplikatReferensi = asli;             // menyalin REFERENSI, bukan membuat object baru
+
+        System.out.println("Level Arjuna sebelum: " + asli.getLevel());
+        duplikatReferensi.setLevel(99);                  // mengubah LEWAT variabel lain
+
+        System.out.println("Level Arjuna sesudah (lewat 'asli'): " + asli.getLevel());
+        System.out.println("asli == duplikatReferensi? " + (asli == duplikatReferensi));
+
+        // Bandingkan dengan getAllCharacters() yang mengembalikan SALINAN LIST:
+        java.util.ArrayList<Character> salinanList = manager.getAllCharacters();
+        salinanList.add(new Character("Hantu", CharacterType.MAGE, 1));   // tambah ke SALINAN list
+
+        System.out.println("Total di manager asli: " + manager.getTotalCharacters());
+        System.out.println("Total di salinan list : " + salinanList.size());
+
+
+        // =======================================================================
+        // ===== TUGAS 3: Pengujian Method Rata-Rata Level & Pencarian Tipe =====
+        // =======================================================================
+        System.out.println("\n--- Pengujian Fitur Baru (Tugas 3) ---");
         
-        // 1. Membuat satu karakter baru
-        Character shadow = new Character("Kael", CharacterType.MAGE, 5);
+        // A. Uji Rata-rata Level
+        // Saat ini karakter tersisa: Arjuna (Level telah diubah jadi 99 lewat eksperimen) dan Merlin (Level 3)
+        System.out.println("Rata-rata level karakter: " + manager.getAverageLevel());
+
+        // B. Uji Cari Berdasarkan Tipe (Mencari MAGE)
+        System.out.println("\nMenampilkan karakter dengan tipe MAGE:");
+        java.util.ArrayList<Character> daftarMage = manager.findByType(CharacterType.MAGE);
+        if (daftarMage.isEmpty()) {
+            System.out.println("Tidak ada karakter bertipe MAGE.");
+        } else {
+            for (Character mage : daftarMage) {
+                System.out.println("- " + mage.getName() + " (Tipe: " + mage.getType() + ", Level: " + mage.getLevel() + ")");
+            }
+        }
         
-        // Menguji setter mana dengan nilai valid
-        shadow.setMana(80);
+        // C. Uji Cari Tipe yang Tidak Ada di Manager (Misalnya HEALER)
+        System.out.println("\nMenampilkan karakter dengan tipe HEALER:");
+        java.util.ArrayList<Character> daftarHealer = manager.findByType(CharacterType.HEALER);
+        if (daftarHealer.isEmpty()) {
+            System.out.println("Karakter bertipe HEALER tidak ditemukan (sesuai harapan).");
+        }
+
+         // =======================================================================
+        // ===== TUGAS MANDIRI: Pengujian Method findStrongest()             =====
+        // =======================================================================
+        System.out.println("\n--- Pengujian Fitur Mandiri: Karakter Terkuat ---");
         
-        // Menguji setter mana dengan nilai negatif (akan memicu pesan error)
-        System.out.print("Mencoba set mana negatif: ");
-        shadow.setMana(-10); 
-        
-        // 2 & 3. Memanggil isAlive() dan mencetak hasilnya
-        System.out.println("Apakah karakter " + shadow.getName() + " hidup? " + shadow.isAlive());
-        
-        // 4. Mencetak hasil toString() untuk melihat apakah mana muncul
-        System.out.println("Data Karakter Baru: " + shadow);
+        Character terkuat = manager.findStrongest();
+        if (terkuat != null) {
+            System.out.println("Karakter terkuat saat ini adalah: " + terkuat.getName() + 
+                               " dengan ATK sebesar " + terkuat.getAttackPower());
+        } else {
+            System.out.println("Tidak ada karakter di dalam manager.");
+        }
     }
 }
