@@ -3,11 +3,8 @@ Aplikasi ini adalah sistem manajemen karakter sederhana berbasis teks (Console-b
 
 ## Screenshot Output Terminal ap3
 
-
-
-Berikut adalah hasil eksekusi program di terminal setelah menambahkan fitur pengecekan status `isAlive()` dan atribut `mana`:
-
-
+<img width="1920" height="1080" alt="Screenshot (1)" src="https://github.com/user-attachments/assets/17348968-7858-40f5-a6f7-98fc9d8e6336" />
+<img width="1920" height="1080" alt="Screenshot (7)" src="https://github.com/user-attachments/assets/7c0622a1-6f65-4573-ba5a-394f1eac9821" />
 
 ## Struktur Folder Project
 
@@ -38,7 +35,10 @@ Dalam pengembangan sebuah game atau sistem RPG, mengetahui entitas atau karakter
 
 ## Screenshot Output Terminal ap6
 
-
+<img width="1920" height="1080" alt="Screenshot (21)" src="https://github.com/user-attachments/assets/03bb0004-9942-422a-82c9-0d9b48cf2a9d" />
+<img width="1920" height="1080" alt="Screenshot (22)" src="https://github.com/user-attachments/assets/768bd7cc-9e78-4afe-8e3f-75dcae30c42a" />
+<img width="1920" height="1080" alt="Screenshot (23)" src="https://github.com/user-attachments/assets/f8d8defa-482c-445e-805b-997ead1bb2c4" />
+<img width="1920" height="1080" alt="Screenshot (24)" src="https://github.com/user-attachments/assets/7790e8a7-625f-4afe-8dfd-62552c826ee5" />
 
 # AP10 — Character Manager GUI dan Statistik Karakter
 
@@ -52,8 +52,9 @@ Bima — WARRIOR, Level 6: Dipilih sebagai karakter petarung dengan level lebih 
 Penambahan karakter dengan tipe dan level yang berbeda memungkinkan aplikasi menampilkan data yang lebih bervariasi dan menguji apakah statistik rata-rata level dihitung berdasarkan seluruh karakter secara akurat.
 
 ## Screenshot Output Terminal ap10
-
-
+<img width="1920" height="1080" alt="Screenshot (26)" src="https://github.com/user-attachments/assets/17fc7a36-78c5-48e1-9343-51b12cfc5588" />
+<img width="1920" height="1080" alt="Screenshot (27)" src="https://github.com/user-attachments/assets/d4e1cf2b-2ccb-4387-b423-9f9d92102f84" />
+<img width="1920" height="1080" alt="Screenshot (29)" src="https://github.com/user-attachments/assets/e40eb7bb-e1ec-4036-97d0-5d2381ca33ce" />
 
 ## Identitas Mahasiswa
 
