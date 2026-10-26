@@ -2,7 +2,7 @@
 Aplikasi ini adalah sistem manajemen karakter sederhana berbasis teks (Console-based Game Character Manager) yang dibangun menggunakan bahasa pemrograman Java. Proyek ini menerapkan prinsip Pemrograman Berorientasi Objek (OOP), khususnya enkapsulasi (Encapsulation) dengan pembatasan hak akses atribut menggunakan setter, getter, serta fungsi validasi nilai logika. Sistem juga mendukung kalkulasi otomatis status karakter (HP dan Attack) berdasarkan level serta fitur pelacakan kondisi hidup/mati karakter.
 
 ## Screenshot Output Terminal ap3
-
+<img width="1920" height="1080" alt="Screenshot (7)" src="https://github.com/user-attachments/assets/9ea3019a-9a65-4352-8c66-0cde2a2c1d39" />
 
 
 ## Struktur Folder Project
@@ -34,7 +34,10 @@ Dalam pengembangan sebuah game atau sistem RPG, mengetahui entitas atau karakter
 * **No Information Leakage:** Struktur data internal `ArrayList<Character> characterList` milik `CharacterManager` tetap terkunci rapat di dalam class (private). Akses luar murni hanya mendapatkan hasil kalkulasi/pencarian objek spesifik tanpa diberi celah untuk memodifikasi atau menambah isi list secara ilegal.
 
 ## Screenshot Output Terminal ap6
-
+<img width="1920" height="1080" alt="Screenshot (21)" src="https://github.com/user-attachments/assets/2c63a7ee-d22f-4758-8df0-e6679bd241c6" />
+<img width="1920" height="1080" alt="Screenshot (22)" src="https://github.com/user-attachments/assets/8491d6cc-47ba-4bd0-966b-dc776ee611e6" />
+<img width="1920" height="1080" alt="Screenshot (23)" src="https://github.com/user-attachments/assets/3ead18cb-fdf9-45f8-927c-1bc5b2c110c4" />
+<img width="1920" height="1080" alt="Screenshot (24)" src="https://github.com/user-attachments/assets/d1ce5649-dd8d-476e-a37e-eba14b5646fb" />
 
 
 # AP10 — Character Manager GUI dan Statistik Karakter
@@ -49,7 +52,9 @@ Bima — WARRIOR, Level 6: Dipilih sebagai karakter petarung dengan level lebih 
 Penambahan karakter dengan tipe dan level yang berbeda memungkinkan aplikasi menampilkan data yang lebih bervariasi dan menguji apakah statistik rata-rata level dihitung berdasarkan seluruh karakter secara akurat.
 
 ## Screenshot Output Terminal ap10
-
+<img width="1920" height="1080" alt="Screenshot (26)" src="https://github.com/user-attachments/assets/0a3dae04-1a82-43c8-be06-5b27669b2af2" />
+<img width="1920" height="1080" alt="Screenshot (27)" src="https://github.com/user-attachments/assets/0a8e478f-27e3-4f22-be06-024eec546217" />
+<img width="1920" height="1080" alt="Screenshot (29)" src="https://github.com/user-attachments/assets/fbe43a9d-b821-460e-9b8f-a764fe2fa415" />
 
 
 # AP13 — Dokumentasi Pembaruan GUI & Manajemen Tema
@@ -66,7 +71,11 @@ Untuk meningkatkan kualitas antarmuka dan pengalaman pengguna (UX), berikut adal
   * *Alasan:* Properti ini diimplementasikan untuk mempertahankan estetika jendela aplikasi agar tetap bersih, minimalis, dan ringkas. Rincian status sekunder yang padat seperti daya tahan (`hitPoints`) dan daya serang (`attackPower`) dipindahkan ke dalam *hover tooltip* berformat HTML sehingga pengguna tetap dapat meninjau statistik mendalam tanpa membuat tata letak utama menjadi penuh sesak.
 
 ## Screenshot Output (Sebelum vs Sesudah)
+### Sebelum
+<img width="1920" height="1080" alt="Screenshot (29)" src="https://github.com/user-attachments/assets/fcc55440-68d0-4864-b2d9-0b06f24b461d" />
 
+### Sesudah
+<img width="1920" height="1080" alt="Screenshot (34)" src="https://github.com/user-attachments/assets/80fd758b-bca6-4252-8f8a-e3a5d11399ec" />
 
 
 ## Identitas Mahasiswa
