@@ -5,10 +5,6 @@ Aplikasi ini adalah sistem manajemen karakter sederhana berbasis teks (Console-b
 
 
 
-Berikut adalah hasil eksekusi program di terminal setelah menambahkan fitur pengecekan status `isAlive()` dan atribut `mana`:
-
-
-
 ## Struktur Folder Project
 
 ```text
@@ -23,6 +19,7 @@ CharacterManager/
 │               │   └── CharacterType.java
 │               │   └── CharacterManager.java
 │               └── view/
+│                   ├── AppThema.java
 │                   └── MainWindow.java
 └── README.md
 ```
@@ -55,6 +52,23 @@ Penambahan karakter dengan tipe dan level yang berbeda memungkinkan aplikasi men
 
 
 
+# AP13 — Dokumentasi Pembaruan GUI & Manajemen Tema
+
+## 1. Rasionalisasi Pemisahan Data Warna (AppTheme vs Character)
+Penyimpanan data warna dikelola secara terpusat di dalam kelas `AppTheme` (atau `AppThema`) dan bukan di dalam kelas `Character` demi menjaga prinsip *Separation of Concerns* (Pemisahan Tanggung Jawab) pada arsitektur MVC. Kelas `Character` murni bertindak sebagai *Model* yang hanya bertanggung jawab atas logika data dan status internal karakter seperti nama, level, atau poin kesehatan. Jika warna dimasukkan ke dalam kelas `Character`, hal tersebut akan merusak enkapsulasi karena memaksa komponen *Model* untuk memahami elemen visual grafis yang merupakan ranah penuh dari komponen *View*. Dengan pendekatan ini, perubahan tema visual seluruh aplikasi di masa mendatang dapat dilakukan dengan cepat hanya melalui satu file konfigurasi saja tanpa berisiko merusak logika bisnis inti.
+
+## 2. Daftar Properti Tambahan Visual dan Alasan Pemilihan
+Untuk meningkatkan kualitas antarmuka dan pengalaman pengguna (UX), berikut adalah dua properti tambahan yang disematkan ke dalam kartu komponen GUI:
+
+* **Restriksi Akses Karakter Pemula (`setEnabled(false)`)**
+  * *Alasan:* Properti ini dipilih untuk memberikan indikasi visual yang kuat terhadap status kesiapan karakter. Karakter berlevel 1 dianggap sebagai entitas pemula (*trainee*) yang belum memiliki kapabilitas bertarung, sehingga komponen visualnya sengaja dinonaktifkan untuk menyimulasikan pembatasan akses interaksi dalam sistem permainan.
+* **Mekanisme Informasi Melayang (`Dynamic HTML Tooltip`)**
+  * *Alasan:* Properti ini diimplementasikan untuk mempertahankan estetika jendela aplikasi agar tetap bersih, minimalis, dan ringkas. Rincian status sekunder yang padat seperti daya tahan (`hitPoints`) dan daya serang (`attackPower`) dipindahkan ke dalam *hover tooltip* berformat HTML sehingga pengguna tetap dapat meninjau statistik mendalam tanpa membuat tata letak utama menjadi penuh sesak.
+
+## Screenshot Output (Sebelum vs Sesudah)
+
+
+
 ## Identitas Mahasiswa
 
 * Nama Lengkap: Yugas Bintang Bimantara harefa
@@ -62,3 +76,4 @@ Penambahan karakter dengan tipe dan level yang berbeda memungkinkan aplikasi men
 * Link Google Docs ap3: https://docs.google.com/document/d/13VmEHhD6g9jfoNQVd79ebY7AujzoQrAAqYsLhu1JZDE/edit?usp=sharing
 * Link Google Docs ap6: https://docs.google.com/document/d/1-aIZ3DACbzdOY9E0Q-ihezBbM8uxdzWK4TRoRQpNqqI/edit?usp=sharing
 * Link Google Docs ap10: https://docs.google.com/document/d/1vV4PF-lDXRdZbCN6OllHVbcmdEmTuXkokU2j73zBoT0/edit?usp=sharing
+* Link Google Docs ap13: https://docs.google.com/document/d/1EY9-Iq5pRXuauOWAT54PxH7yV7AS5vSO60K-7qbM4_M/edit?usp=sharing
