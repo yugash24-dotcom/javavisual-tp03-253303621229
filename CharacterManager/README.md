@@ -115,11 +115,14 @@ Berikut adalah analisis komparatif antara prediksi teoritis tata letak layout da
 
 ## Screenshot Output Terminal ap16
 1. Ukuran Awal (Default Window Size): 
-   
+   <img width="1920" height="1080" alt="Screenshot (47)" src="https://github.com/user-attachments/assets/d7c09206-7e16-4772-906c-2db36a7cb42a" />
+
 2. Jendela Dilebarkan (Maximized / Resized Large):  
-   
+   <img width="1920" height="1080" alt="Screenshot (48)" src="https://github.com/user-attachments/assets/30313bfb-d2f5-4f22-9724-b71b5097708e" />
+
 3. Jendela Dikecilkan (Minimized / Vertikal Scrollbar Aktif):  
-   
+   <img width="1920" height="1080" alt="Screenshot (49)" src="https://github.com/user-attachments/assets/3f4383ca-2527-4391-9c73-cf4029b98ae8" />
+
 
 ## Identitas Mahasiswa
 
