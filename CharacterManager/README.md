@@ -78,6 +78,49 @@ Untuk meningkatkan kualitas antarmuka dan pengalaman pengguna (UX), berikut adal
 <img width="1920" height="1080" alt="Screenshot (34)" src="https://github.com/user-attachments/assets/80fd758b-bca6-4252-8f8a-e3a5d11399ec" />
 
 
+# AP16 — Dokumentasi Pembaruan GUI, Manajemen Tema & Pengembangan Antarmuka Grafis Terstruktur (v0.5)
+## Analisis Pemilihan Layout Antarmuka (v0.5)
+
+### 1. Mengapa GridLayout (2x2) Dipilih untuk Panel Statistik?
+* **Alasan Desain:** Panel statistik menyajikan 4 metrik ringkas informasi metadata aplikasi. `GridLayout(2, 2)` dipilih karena memaksa setiap grid component memiliki ukuran kotak yang seragam secara simetris, menghasilkan visual baris-kolom yang sangat rapi untuk widget data ringkas. Ketika aplikasi dilebarkan secara horizontal, grid akan meregang merata mengikuti dinamika ukuran jendela tanpa merusak struktur baris.
+
+### 2. Mengapa Absolute Layout (setLayout(null)) Ditolak Keras?
+* **Alasan Penolakan:** Absolute Layout mengharuskan penentuan koordinat piksel secara kaku via `setBounds()`. Desain ini ditolak karena **tidak responsif**. Ketika pengguna melakukan aksi memperbesar atau memperkecil jendela, komponen di dalam Absolute Layout akan tetap membeku di ukuran asalnya, memicu teks terpotong, atau menyisakan area kosong yang mati (*dead space*). Hal ini melanggar standardisasi *multi-platform GUI architecture*.
+
+### 3. Mengapa FlowLayout Ditolak untuk Penempatan Kartu/Statistik?
+* **Alasan Penolakan:** `FlowLayout` menyusun komponen secara menyamping (horizontal) dan otomatis turun ke bawah seperti baris teks mengetik jika ruang habis. Layout ini ditolak untuk panel daftar utama dan panel statistik karena tidak menjamin keseragaman lebar elemen. Jika dipakai pada daftar karakter, orientasi susunannya akan berantakan ke samping kanan alih-alih berbaris vertikal ke bawah yang konsisten sebagai "Daftar Kartu".
+
+### 4. Struktur Panel Bersarang (Nested Panel Architecture)
+Aplikasi ini dibangun menggunakan arsitektur panel bersarang (*nested panels*) yang tersusun secara hierarkis di dalam kontainer utama `JFrame` yang ber-layout `BorderLayout`. Pada bagian atas (`NORTH`), terdapat sebuah kontainer panel utama yang membungkus dua panel vertikal sekaligus, yaitu komponen judul label di sisi atas dan panel ringkasan statistik ber-layout `GridLayout` di sisi bawahnya. Area tengah (`CENTER`) diisi oleh `JScrollPane` yang mengisolasi komponen `cardPanel` ber-layout `GridLayout(0, 1)`, sehingga aliran komponen kartu karakter tersusun vertikal terpisah dari manajemen layout luar. Terakhir, bagian samping (`EAST`) dan bawah (`SOUTH`) masing-masing diisi oleh panel legenda (`BoxLayout`) dan status bar (`BorderLayout`) sebagai komponen independen yang berdiri sendiri.
+
+### 5. Alasan Pemilihan Panel Tambahan & Layout yang Ditolak
+
+*   **Panel Tambahan (Stats Panel dengan `GridLayout 2x2`):** Panel statistik ini dipilih untuk mengelompokkan metrik ringkas aplikasi (jumlah karakter, rata-rata level, status, dan karakter terkuat) ke dalam posisi grid yang simetris dan presisi. `GridLayout` menjamin setiap kotak ringkasan memiliki ukuran lebar dan tinggi yang seragam secara proporsional saat diletakkan di bawah header.
+*   **Alasan Penolakan Absolute Layout (`setLayout(null)`):** Layout absolut ditolak karena sifatnya yang kaku dan tidak responsif. Jika menggunakan koordinat piksel tetap (`setBounds`), komponen tidak akan bisa menyesuaikan diri saat jendela aplikasi di-resize oleh pengguna di Windows, yang mengakibatkan teks terpotong atau menyisakan ruang kosong mati (*dead space*).
+*   **Alasan Penolakan FlowLayout:** `FlowLayout` ditolak untuk panel statistik maupun panel daftar karakter karena sifat alirannya yang menyamping. Jika ruang horizontal menyempit, komponen akan bergeser ke bawah secara tidak beraturan, merusak visual baris-kolom statistik serta mematahkan orientasi vertikal kartu karakter yang seharusnya konsisten berbaris ke bawah.
+
+### 6. Wireframe & Desain Antarmuka
+*(Silakan gambar sketsa kasar kotak-kotak BorderLayout atau gunakan alat bantu diagram, lalu simpan ke folder proyek Anda dan tautkan di sini)*
+
+### 7. Tabel Pengamatan Resize Jendela
+
+Berikut adalah analisis komparatif antara prediksi teoritis tata letak layout dan hasil aktual saat jendela aplikasi dimanipulasi ukurannya pada sistem operasi Windows:
+
+| Komponen Wilayah | Prediksi Perilaku Layout (Saat Jendela Diresize) | Hasil Aktual Pengamatan Lapangan | Kesesuaian (Sesuai / Tidak) |
+| :--- | :--- | :--- | :--- |
+| **NORTH** (Header & Stats) | Lebar panel akan melebar penuh mengikuti horizontal jendela, tetapi tinggi panel akan tetap konstan sesuai isi komponen internalnya. | Panel statistik meregang mulus ke kanan secara horizontal. Kotak grid 2x2 mempertahankan proporsi tingginya tanpa merusak teks judul di atasnya. | Sesuai |
+| **CENTER** (Cards List) | Mengisi sisa ruang kosong utama. Saat ditarik melebar, kartu memanjang ke kanan. Saat dikecilkan secara vertikal melewati batas tinggi pref, `JScrollPane` memunculkan scrollbar. | Kartu ber-GridLayout melebar secara horizontal mengisi ruang tengah. Saat tinggi jendela diperkecil, batang penggulung (*vertical scrollbar*) otomatis muncul di sisi kanan. | Sesuai |
+| **EAST** (Legenda Role) | Tinggi panel akan memanjang mengikuti tinggi jendela. Lebar panel akan tetap statis mengikuti ukuran komponen terlebar di dalam `BoxLayout`. | Komponen label role tetap berada di tengah (`CENTER_ALIGNMENT`). `Box.createVerticalGlue()` sukses mendorong sisa ruang kosong ke bawah, menjaga susunan tetap rapi. | Sesuai |
+| **SOUTH** (Status Bar) | Tetap mengunci posisi di bagian terbawah jendela. Teks sistem akan merapat ke kiri (`WEST`) dan teks versi `"v0.5"` akan merapat penuh ke sudut kanan (`EAST`). | Panel status bar tetap berada di dasar frame. Teks info dan versi terpisah secara otomatis ke ujung kiri dan kanan berkat sifat pembagian wilayah `BorderLayout`. | Sesuai |
+
+## Screenshot Output Terminal ap16
+1. Ukuran Awal (Default Window Size): 
+   
+2. Jendela Dilebarkan (Maximized / Resized Large):  
+   
+3. Jendela Dikecilkan (Minimized / Vertikal Scrollbar Aktif):  
+   
+
 ## Identitas Mahasiswa
 
 * Nama Lengkap: Yugas Bintang Bimantara harefa
@@ -86,3 +129,4 @@ Untuk meningkatkan kualitas antarmuka dan pengalaman pengguna (UX), berikut adal
 * Link Google Docs ap6: https://docs.google.com/document/d/1-aIZ3DACbzdOY9E0Q-ihezBbM8uxdzWK4TRoRQpNqqI/edit?usp=sharing
 * Link Google Docs ap10: https://docs.google.com/document/d/1vV4PF-lDXRdZbCN6OllHVbcmdEmTuXkokU2j73zBoT0/edit?usp=sharing
 * Link Google Docs ap13: https://docs.google.com/document/d/1EY9-Iq5pRXuauOWAT54PxH7yV7AS5vSO60K-7qbM4_M/edit?usp=sharing
+* Link Google Docs ap16: https://docs.google.com/document/d/1JgWPDFcWPl2-3WdPWqxeYHpDCuINMZsC-7nUXxxvOpE/edit?usp=sharing
